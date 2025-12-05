@@ -1,0 +1,209 @@
+---
+import AboutHeroImage from '../assets/blog-placeholder-about.jpg';
+import Layout from '../layouts/BlogPost.astro';
+---
+
+<Layout
+	title="About StackOrbit"
+	description="Notes, projects, and deep dives from a computer engineer who loves operating systems, security, and AI."
+	pubDate={new Date('December 05 2025')}
+	heroImage={AboutHeroImage}
+>
+	<section class="about">
+		<h2>Who am I?</h2>
+		<p>
+			I'm a computer engineering student and developer who enjoys going deep:
+			operating systems, low-level tools, security, and AI-powered workflows.
+			StackOrbit is my space to document what I'm learning, building, and
+			breaking down in a way other engineers can reuse.
+		</p>
+		<p>
+			Here you'll find technical write‑ups, practical troubleshooting guides
+			(Windows, Linux, networking), and breakdowns of real projects — not just
+			“hello world” tutorials.
+		</p>
+	</section>
+
+	<section class="about">
+		<h2>What you’ll find here</h2>
+		<ul class="bullet-list">
+			<li>
+				<strong>Deep technical articles</strong> — detailed posts on OS internals,
+				CLI tools, automation, and security concepts, with explanations and
+				diagrams when needed.
+			</li>
+			<li>
+				<strong>Practical “tricks” and fixes</strong> — things like safely
+				regaining access to your own Windows machine, setting up dev
+				environments, and optimizing workflows.
+			</li>
+			<li>
+				<strong>Project breakdowns</strong> — from idea to architecture to
+				implementation, including code snippets, gotchas, and lessons learned.
+			</li>
+			<li>
+				<strong>AI in the toolbox</strong> — how to use AI responsibly to speed
+				up research, debugging, and documentation, without losing control of
+				the codebase.
+			</li>
+		</ul>
+	</section>
+
+	<section class="about">
+		<h2>Focus areas</h2>
+		<div class="pill-row">
+			<span class="pill">Windows & Linux internals</span>
+			<span class="pill">Security & hardening</span>
+			<span class="pill">Backend & tooling</span>
+			<span class="pill">AI for developers</span>
+		</div>
+	</section>
+
+	<section class="about">
+		<h2>Selected projects (in progress)</h2>
+		<p class="section-note">
+			This is a quick overview. Each project will have its own StackOrbit post
+			with architecture diagrams, commands, and lessons learned.
+		</p>
+
+		<ul class="project-list">
+			<li class="project-item">
+				<h3>1. Noiro12 Labs Nexus — Sovereign Bug Bounty & Offensive Automation</h3>
+				<p>
+					A sovereign Discord‑based “Bug Bounty empire” where a single bot
+					coordinates local and cloud AI models with a curated toolbox of
+					security utilities inside one RTX 4050‑optimized Docker container.
+					The goal is to minimize the time from idea → recon → exploit →
+					report, while keeping full control over data and tooling.
+				</p>
+				<p class="meta">
+					<span>
+						Stack: discord.py (slash commands, Cogs), Docker, Ollama
+						(DeepSeek, Qwen, LLaMA, Dolphin), LangChain, sentence-transformers,
+						ChromaDB, Groq (LLaMA‑3), OpenRouter (Claude 3.5), 75+ security tools
+						(ProjectDiscovery suite, rustscan, feroxbuster, sqlmap, theHarvester,
+						XSStrike, ParamSpider, wpscan, nikto, wfuzz, commix, wafw00f, …),
+						pyotp 2FA, structured logging.
+					</span>
+				</p>
+			</li>
+
+			<li class="project-item">
+				<h3>2. TruthLens — AI‑assisted news and content risk analysis</h3>
+				<p>
+					A web platform that analyzes news and links to estimate how
+					misleading or high‑risk a piece of content might be. Instead of a
+					simple “true/false” label, it produces a full verdict with confidence,
+					credibility score, harm level, toxicity, clickbait signals, entities,
+					and crisis context, aimed at everyday users, journalists, and
+					researchers.
+				</p>
+				<p class="meta">
+					<span>
+						Stack: FastAPI, Celery, Redis, Skops models (fake news & clickbait),
+						Detoxify, spaCy, SentenceTransformers, local Qwen LLM orchestration,
+						Pydantic models for rich responses, Firestore for per‑user history,
+						HTML/JS front‑end with planned annotation and citizen‑science
+						features.
+					</span>
+				</p>
+			</li>
+		</ul>
+	</section>
+
+	<section class="about">
+		<h2>Connect</h2>
+		<p>
+			If you want to follow what I'm building, check the blog for new posts and
+			updates. For code and experiments, visit my GitHub profile:
+			<a href="https://github.com/noiro12" target="_blank" rel="noopener noreferrer"
+				>github.com/noiro12</a
+			>.
+		</p>
+	</section>
+</Layout>
+
+<style>
+	.about {
+		margin-bottom: 1.75rem;
+	}
+
+	.about:last-of-type {
+		margin-bottom: 0;
+	}
+
+	.about h2 {
+		margin: 0 0 0.6rem;
+		font-size: 1.15rem;
+	}
+
+	.about p {
+		margin: 0 0 0.6rem;
+		line-height: 1.7;
+		font-size: 0.97rem;
+		color: rgba(0, 0, 0, 0.85);
+	}
+
+	.bullet-list {
+		margin: 0.4rem 0 0.4rem 1.1rem;
+		padding: 0;
+	}
+
+	.bullet-list li {
+		margin-bottom: 0.35rem;
+		font-size: 0.96rem;
+	}
+
+	.pill-row {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		margin-top: 0.4rem;
+	}
+
+	.pill {
+		display: inline-flex;
+		align-items: center;
+		border-radius: 999px;
+		padding: 0.25em 0.75em;
+		font-size: 0.8rem;
+		background: rgba(15, 23, 42, 0.04);
+		color: rgba(15, 23, 42, 0.85);
+	}
+
+	.section-note {
+		font-size: 0.9rem;
+		color: rgba(0, 0, 0, 0.7);
+	}
+
+	.project-list {
+		list-style: none;
+		margin: 0.6rem 0 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.9rem;
+	}
+
+	.project-item {
+		border-radius: 0.8rem;
+		border: 1px solid rgba(0, 0, 0, 0.06);
+		padding: 0.9rem 0.95rem;
+		background: white;
+	}
+
+	.project-item h3 {
+		margin: 0 0 0.35rem;
+		font-size: 1rem;
+	}
+
+	.project-item p {
+		margin: 0 0 0.4rem;
+		font-size: 0.94rem;
+	}
+
+	.meta {
+		font-size: 0.82rem;
+		color: rgba(0, 0, 0, 0.65);
+	}
+</style>

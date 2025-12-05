@@ -1,0 +1,181 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import Header from '../../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+
+const posts = (await getCollection('blog'))
+	.filter((post) => !post.data.draft)
+	.sort(
+		(a, b) =>
+			new Date(b.data.pubDate).getTime() -
+			new Date(a.data.pubDate).getTime()
+	);
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Blog · ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
+		<style>
+			main {
+				max-width: 960px;
+				margin: 0 auto;
+				padding: 2.5rem 1.25rem 3.5rem;
+			}
+
+			.blog-header {
+				margin-bottom: 1.5rem;
+			}
+
+			.blog-header h1 {
+				margin: 0 0 0.4rem;
+				font-size: clamp(1.9rem, 3vw, 2.2rem);
+			}
+
+			.blog-header p {
+				margin: 0;
+				font-size: 0.97rem;
+				color: rgba(0, 0, 0, 0.78);
+			}
+
+			.post-grid {
+				list-style: none;
+				margin: 1.5rem 0 0;
+				padding: 0;
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+				gap: 1.5rem;
+			}
+
+			.post-card {
+				margin: 0;
+			}
+
+			.post-link {
+				display: block;
+				border-radius: 0.9rem;
+				border: 1px solid rgba(0, 0, 0, 0.06);
+				background: white;
+				text-decoration: none;
+				color: inherit;
+				overflow: hidden;
+				box-shadow: 0 6px 20px rgba(15, 23, 42, 0.04);
+				transition: transform 0.13s ease, box-shadow 0.13s ease,
+					border-color 0.13s ease;
+				height: 100%;
+			}
+
+			.post-link:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+				border-color: rgba(0, 0, 0, 0.12);
+			}
+
+			.post-image {
+				display: block;
+				width: 100%;
+				height: 180px;
+				object-fit: cover;
+			}
+
+			.post-body {
+				padding: 0.9rem 1rem 1rem;
+			}
+
+			.post-meta {
+				margin: 0 0 0.35rem;
+				font-size: 0.78rem;
+				color: rgba(0, 0, 0, 0.6);
+				display: flex;
+				align-items: center;
+				gap: 0.45rem;
+				flex-wrap: wrap;
+			}
+
+			.post-meta .dot {
+				font-size: 0.9rem;
+			}
+
+			.post-title {
+				margin: 0 0 0.4rem;
+				font-size: 1rem;
+				color: rgb(var(--black));
+			}
+
+			.post-desc {
+				margin: 0 0 0.5rem;
+				font-size: 0.9rem;
+				color: rgba(0, 0, 0, 0.76);
+			}
+
+			.post-cta {
+				margin: 0;
+				font-size: 0.86rem;
+				color: var(--accent);
+			}
+
+			.empty {
+				margin-top: 1.5rem;
+				font-size: 0.95rem;
+				color: rgba(0, 0, 0, 0.75);
+			}
+
+			@media (max-width: 720px) {
+				main {
+					padding: 1.75rem 1.1rem 3rem;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<header class="blog-header">
+				<h1>StackOrbit Blog</h1>
+				<p>
+					Technical breakdowns, OS tips, security notes, and AI‑powered
+					workflows — all from a computer engineer’s point of view.
+				</p>
+			</header>
+
+			{posts.length === 0 ? (
+				<p class="empty">No posts yet. First article coming soon.</p>
+			) : (
+				<ul class="post-grid">
+					{posts.map((post) => (
+						<li class="post-card">
+							<a href={`/blog/${post.id}/`} class="post-link">
+								{post.data.heroImage && (
+									<Image
+										width={720}
+										height={360}
+										src={post.data.heroImage}
+										alt=""
+										class="post-image"
+									/>
+								)}
+								<div class="post-body">
+									<p class="post-meta">
+										<FormattedDate date={post.data.pubDate} />
+										{post.data.category && <span class="dot">•</span>}
+										{post.data.category && <span>{post.data.category}</span>}
+									</p>
+									<h2 class="post-title">{post.data.title}</h2>
+									{post.data.description && (
+										<p class="post-desc">{post.data.description}</p>
+									)}
+									<p class="post-cta">Read article →</p>
+								</div>
+							</a>
+						</li>
+					))}
+				</ul>
+			)}
+		</main>
+		<Footer />
+	</body>
+</html>
